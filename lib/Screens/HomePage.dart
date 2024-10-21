@@ -1,4 +1,6 @@
+import 'package:count/Provider/count_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -13,6 +15,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     print('Build');
+    final Countprovider = Provider.of<CountProvider>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Provider Tutorial'),
@@ -23,16 +26,18 @@ class _HomepageState extends State<Homepage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(x.toString(),style: const TextStyle(fontSize: 35),)
+            Consumer<CountProvider>(
+                builder: (BuildContext context, value, Widget? child) {
+                  return Text(Countprovider.count.toString(),style: const TextStyle(fontSize: 35),);
+                },
+                )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed:(){
-            setState(() {
-              x++;
-            });
-            print('$x');
+            Countprovider.setCount();
+            // print('$x');
           },
         child: const Icon(Icons.add),
       ),

@@ -1,8 +1,14 @@
+import 'package:count/Provider/count_provider.dart';
 import 'package:count/Screens/HomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider(
+      create: (_) => CountProvider(),
+      child: const MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {
